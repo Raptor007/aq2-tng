@@ -2700,8 +2700,9 @@ void ClientUserinfoChanged(edict_t *ent, char *userinfo)
 					continue;
 				if( IsInIgnoreList( other, ent ) )
 					continue;
-				gi.cprintf( other, PRINT_MEDIUM, "%s is now known as %s.\n", client->pers.netname, tnick ); //TempFile
+				//gi.cprintf( other, PRINT_MEDIUM, "%s is now known as %s.\n", client->pers.netname, tnick ); //TempFile
 			}
+			gi.bprintf(PRINT_MEDIUM, "%s is now known as %s.\n", client->pers.netname, tnick );
 			IRC_printf(IRC_T_SERVER, "%n is now known as %n.", client->pers.netname, tnick);
 			nickChanged = true;
 		}
