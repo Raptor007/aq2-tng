@@ -749,7 +749,7 @@ qboolean ACEAI_FindEnemy(edict_t *self, int *total)
 		{
 // RiEvEr
 			// Now we assess this enemy
-			qboolean visible = loud || footstep || infront( self, players[i] );
+			qboolean visible = loud || footstep || players[i]->is_bot || infront( self, players[i] );
 
 			if( ! visible )
 			{
