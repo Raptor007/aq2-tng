@@ -57,12 +57,16 @@ qboolean ACECM_Commands(edict_t *ent)
 		ACEND_ShowPath(ent,atoi(gi.argv(1)));
 
 	else if(Q_stricmp (cmd, "shownode") == 0 && debug_mode)
-		ACEND_ShowNode(atoi(gi.argv(1)));
+	{
+		node = (gi.argc() >= 2) ? atoi(gi.argv(1)) : ACEND_FindClosestReachableNode( ent, NODE_DENSITY, NODE_ALL );
+		ACEND_ShowNode( node );
+	}
 
 	else if(Q_stricmp (cmd, "findnode") == 0 && debug_mode)
 	{
-		node = (gi.argc() >= 2) ? atoi(gi.argv(1)) : ACEND_FindClosestReachableNode(ent,NODE_DENSITY, NODE_ALL);
-		gi.bprintf(PRINT_MEDIUM,"node: %d type: %d x: %f y: %f z %f\n",node,nodes[node].type,nodes[node].origin[0],nodes[node].origin[1],nodes[node].origin[2]);
+		node = (gi.argc() >= 2) ? atoi(gi.argv(1)) : ACEND_FindClosestReachableNode( ent, NODE_DENSITY, NODE_ALL );
+		gi.bprintf( PRINT_MEDIUM, "node: %d type: %d x: %f y: %f z %f\n",
+			node, nodes[node].type, nodes[node].origin[0], nodes[node].origin[1], nodes[node].origin[2] );
 	}
 
 	else if(Q_stricmp (cmd, "movenode") == 0 && debug_mode)
@@ -111,6 +115,20 @@ qboolean ACECM_Commands(edict_t *ent)
 		int i;
 		for( i = 1; i < numnodes; i ++ )
 			ACEND_ShowNode(i);
+	}
+
+	else if(Q_stricmp (cmd, "showspawns") == 0 && debug_mode)
+	{
+		int i;
+		for( i = game.maxclients + 1; i < globals.num_edicts; i ++ )
+		{
+			edict_t *ent = &(g_edicts[ i ]);
+			if( ent->inuse && (strnicmp( ent->classname, "info_player_", strlen("info_player_") ) == 0) )
+			{
+				int renderfx = RF_SHELL_GREEN | RF_SHELL_BLUE;  // FIXME
+				ACEND_ShowPos( ent->s.origin, renderfx );
+			}
+		}
 	}
 
 	else if(Q_stricmp (cmd, "botgoal") == 0 && debug_mode)

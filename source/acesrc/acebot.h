@@ -272,6 +272,7 @@ qboolean ACEND_CheckForLadder(edict_t *self);
 void     ACEND_PathMap(edict_t *self);
 void     ACEND_InitNodes(void);
 void     ACEND_ShowNode(int node);
+void     ACEND_ShowPos( vec3_t pos, int renderfx );
 void     ACEND_DrawPath(edict_t *self);
 void     ACEND_ShowPath(edict_t *self, int goal_node);
 int      ACEND_AddNode(edict_t *self, int type);

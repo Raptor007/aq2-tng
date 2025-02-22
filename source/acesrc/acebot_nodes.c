@@ -744,6 +744,23 @@ void ACEND_ShowNode(int node)
 
 }
 
+void ACEND_ShowPos( vec3_t pos, int renderfx )
+{
+	edict_t *ent = G_Spawn();
+
+	ent->movetype = MOVETYPE_NONE;
+	ent->solid = SOLID_NOT;
+	ent->s.renderfx = renderfx;
+	ent->s.modelindex = gi.modelindex( "models/items/ammo/grenades/medium/tris.md2" );
+	ent->owner = ent;
+	ent->nextthink = level.framenum + 60 * HZ; // 1 minute is long enough!
+	ent->think = G_FreeEdict;
+	ent->dmg = 0;
+
+	VectorCopy( pos,ent->s.origin );
+	gi.linkentity( ent );
+}
+
 ///////////////////////////////////////////////////////////////////////
 // Draws the current path (utility function)
 ///////////////////////////////////////////////////////////////////////
