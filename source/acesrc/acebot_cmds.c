@@ -123,7 +123,7 @@ qboolean ACECM_Commands(edict_t *ent)
 		for( i = game.maxclients + 1; i < globals.num_edicts; i ++ )
 		{
 			edict_t *ent = &(g_edicts[ i ]);
-			if( ent->inuse && (strnicmp( ent->classname, "info_player_", strlen("info_player_") ) == 0) )
+			if( ent->inuse && (Q_strnicmp( ent->classname, "info_player_", strlen("info_player_") ) == 0) )
 			{
 				int renderfx = RF_SHELL_GREEN | RF_SHELL_BLUE;  // FIXME
 				ACEND_ShowPos( ent->s.origin, renderfx );
